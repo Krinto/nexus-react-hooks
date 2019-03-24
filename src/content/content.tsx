@@ -18,7 +18,6 @@ const Content = (props: ContentProps) => {
       if(contentRef.current != null){
         contentRef.current.addEventListener("load", () =>{
           setFrameLoading(false);
-          console.log("loaded");
         });
       }
     }, [contentRef]);
