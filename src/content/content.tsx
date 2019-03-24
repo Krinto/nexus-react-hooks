@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import './content.scss';
 
 export interface ContentProps {
@@ -6,8 +6,28 @@ export interface ContentProps {
 }
 
 const Content = (props: ContentProps) => {
+  const[frameLoading, setFrameLoading] = useState(false);
+  const contentRef = useRef<HTMLIFrameElement | null>(null)
+
+    useEffect(() => {
+      setFrameLoading(true);
+      
+    }, [props.url]);
+
+    useEffect(() => {
+      if(contentRef.current != null){
+        contentRef.current.addEventListener("load", () =>{
+          setFrameLoading(false);
+          console.log("loaded");
+        });
+      }
+    }, [contentRef]);
+
     return (
-      <iframe src={props.url} className="content" />
+      <div>
+        {frameLoading ? <h3>Loading</h3> : ""}
+        <iframe src={props.url} className="content" ref={contentRef} />
+      </div>
     );
 };
 

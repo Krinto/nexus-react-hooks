@@ -17,6 +17,9 @@
   
   .item {
     padding: 0px 20px 0px 20px;
+    &:hover {
+      cursor: pointer;
+    }
   }
   
   .app-logo {
