@@ -1,12 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './sideMenu.scss';
 import logo from '../logo.svg';
 
-export interface SideMenuProps {
+export type SideMenuProps = {
   updateUrl(url: string): void;
 }
 
-export interface SideMenuItem {
+export type SideMenuItem = {
   id: number;
   title: string;
   url: string;
@@ -19,6 +19,10 @@ const initialItems: SideMenuItem[] = [
 
 const SideMenu = (props: SideMenuProps) => {
   const [menuItems, setMenuItems] = useState<SideMenuItem[]>(initialItems);
+
+  useEffect(() => {
+    // fetch data
+  }, []);
   return (
     <div className="side-menu">
       <div className="logo">

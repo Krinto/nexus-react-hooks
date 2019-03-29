@@ -8,9 +8,9 @@ const App = () => {
   const [currentUrl, setCurrentUrl] = React.useState("http://192.168.1.22:8989");
   return (
     <div className="App">
-        <SideMenu updateUrl={setCurrentUrl} />
-        <Content url={currentUrl} />
-      </div>
+      <SideMenu updateUrl={setCurrentUrl} />
+      <Content url={currentUrl} />
+    </div>
   );
 };
 

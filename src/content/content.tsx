@@ -1,12 +1,15 @@
 import React, { useState, useRef, useEffect } from 'react'
+import { Progress } from "rbx";
+
+import "rbx/index.css";
 import './content.scss';
 
-export interface ContentProps {
+export type ContentProps = {
     url: string;
 }
 
 const Content = (props: ContentProps) => {
-  const[frameLoading, setFrameLoading] = useState(false);
+  const [frameLoading, setFrameLoading] = useState(false);
   const contentRef = useRef<HTMLIFrameElement | null>(null)
 
     useEffect(() => {
@@ -24,7 +27,7 @@ const Content = (props: ContentProps) => {
 
     return (
       <div>
-        {frameLoading ? <h3>Loading</h3> : ""}
+        {frameLoading && <Progress size="small" color="primary"/>}
         <iframe src={props.url} className="content" ref={contentRef} />
       </div>
     );
