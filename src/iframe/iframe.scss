@@ -1,6 +1,6 @@
-.content {
+.iframe {
     width: 100vw;
-    height: 100vh;
+    height: calc(100vh - 52px);
     background-color: transparent;
     border: 0px none transparent;
     padding: 0px;
@@ -10,3 +10,10 @@
     box-sizing: border-box;
   }
   
+  .iframe-window {
+    position: relative;
+  }
+
+  .iframe-progress {
+    position: fixed;
+  }

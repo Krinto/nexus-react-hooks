@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './App.scss';
-import Content from './content/content';
+import IFrame from './iframe/iframe';
 import SideMenu from './sideMenu/sideMenu';
 import "rbx/index.css";
 
@@ -9,7 +9,7 @@ const App = () => {
   return (
     <div className="App">
       <SideMenu updateUrl={setCurrentUrl} />
-      <Content url={currentUrl} />
+      <IFrame url={currentUrl} />
     </div>
   );
 };

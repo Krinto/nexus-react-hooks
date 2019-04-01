@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, Icon } from "rbx";
+import { Navbar, Icon } from 'rbx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
+import SettingsModal from './SettingsModal'
 
 import './sideMenu.scss';
 import logo from '../logo.svg';
@@ -23,10 +24,16 @@ const initialItems: SideMenuItem[] = [
 
 const SideMenu = (props: SideMenuProps) => {
   const [menuItems, setMenuItems] = useState<SideMenuItem[]>(initialItems);
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     // fetch data
   }, []);
+
+  function onSettingsClick(event: React.MouseEvent<Element, MouseEvent>) : void {
+    setShowSettings(true);
+  }
+
   return (
     <Navbar color="primary">
       <Navbar.Brand>
@@ -49,13 +56,14 @@ const SideMenu = (props: SideMenuProps) => {
         </Navbar.Segment>
 
         <Navbar.Segment align="end">
-          <Navbar.Item>
+          <Navbar.Item onClick={onSettingsClick}>
             <Icon>
               <FontAwesomeIcon icon={faCog} />
             </Icon>
           </Navbar.Item>
         </Navbar.Segment>
       </Navbar.Menu>
+      <SettingsModal shouldShow={showSettings} updateShow={setShowSettings}/>
     </Navbar>
   );
 };
