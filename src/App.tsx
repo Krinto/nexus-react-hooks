@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import logo from './logo.svg';
 import './App.scss';
 import Content from './content/content';
 import SideMenu from './sideMenu/sideMenu';
+import "rbx/index.css";
 
 const App = () => {
   const [currentUrl, setCurrentUrl] = React.useState("http://192.168.1.22:8989");

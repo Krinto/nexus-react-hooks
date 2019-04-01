@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Navbar, Icon } from "rbx";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCog } from '@fortawesome/free-solid-svg-icons'
+
 import './sideMenu.scss';
 import logo from '../logo.svg';
 
@@ -24,19 +28,35 @@ const SideMenu = (props: SideMenuProps) => {
     // fetch data
   }, []);
   return (
-    <div className="side-menu">
-      <div className="logo">
-          <h1>Nexus</h1>
-          <img src={logo} className="app-logo" alt="logo" />
-      </div>
-      <div className="items-list">
-        {menuItems.map(item => (
-          <div key={item.id} className="item" onClick={() => props.updateUrl(item.url)}>
-            <h3>{item.title}</h3>
-          </div>
-        ))}
-      </div>
-    </div>
+    <Navbar color="primary">
+      <Navbar.Brand>
+        <Navbar.Item href="#">
+          <img
+            src={logo}
+            alt=""
+            role="presentation"
+            width="112"
+            height="28"
+          />
+        </Navbar.Item>
+        <Navbar.Burger />
+      </Navbar.Brand>
+      <Navbar.Menu>
+        <Navbar.Segment align="start">
+          {menuItems.map(item => (
+            <Navbar.Item key={item.id} onClick={() => props.updateUrl(item.url)}>{item.title}</Navbar.Item>
+          ))}
+        </Navbar.Segment>
+
+        <Navbar.Segment align="end">
+          <Navbar.Item>
+            <Icon>
+              <FontAwesomeIcon icon={faCog} />
+            </Icon>
+          </Navbar.Item>
+        </Navbar.Segment>
+      </Navbar.Menu>
+    </Navbar>
   );
 };
 

@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Progress } from "rbx";
-
-import "rbx/index.css";
 import './content.scss';
 
 export type ContentProps = {
