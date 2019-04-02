@@ -3,27 +3,31 @@ import { Navbar, Icon } from 'rbx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import SettingsModal from './SettingsModal'
-
-import './sideMenu.scss';
+import { AppSettings } from '../App';
+import map from "ramda/src/map";
+import './serviceDock.scss';
 import logo from '../logo.svg';
 
-export type SideMenuProps = {
+type ServiceDockProps = {
   updateUrl(url: string): void;
+  appSettings: AppSettings;
+  updateSettings(setting: AppSettings): void;
 }
 
-export type SideMenuItem = {
+export type ServiceItem = {
   id: number;
   title: string;
   url: string;
+  icon: string;
 }
 
-const initialItems: SideMenuItem[] = [
-  {id: 1, title: 'Sonnar', url: 'http://192.168.1.22:8989/'},
-  {id: 2, title: 'Deluge', url: 'http://192.168.1.21:8112/'},
+const initialItems: ServiceItem[] = [
+  {id: 1, title: 'Sonnar', url: 'http://192.168.1.22:8989/', icon: ''},
+  {id: 2, title: 'Deluge', url: 'http://192.168.1.21:8112/', icon: ''},
 ];
 
-const SideMenu = (props: SideMenuProps) => {
-  const [menuItems, setMenuItems] = useState<SideMenuItem[]>(initialItems);
+const ServiceDock = (props: ServiceDockProps) => {
+  const [menuItems, setMenuItems] = useState<ServiceItem[]>(initialItems);
   const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
@@ -45,14 +49,15 @@ const SideMenu = (props: SideMenuProps) => {
             width="112"
             height="28"
           />
+          <p>{JSON.stringify(props.appSettings)}</p>
         </Navbar.Item>
         <Navbar.Burger />
       </Navbar.Brand>
       <Navbar.Menu>
         <Navbar.Segment align="start">
-          {menuItems.map(item => (
+          {map(item => (
             <Navbar.Item key={item.id} onClick={() => props.updateUrl(item.url)}>{item.title}</Navbar.Item>
-          ))}
+          ), menuItems)}
         </Navbar.Segment>
 
         <Navbar.Segment align="end">
@@ -63,9 +68,9 @@ const SideMenu = (props: SideMenuProps) => {
           </Navbar.Item>
         </Navbar.Segment>
       </Navbar.Menu>
-      <SettingsModal shouldShow={showSettings} updateShow={setShowSettings}/>
+      <SettingsModal shouldShow={showSettings} updateShow={setShowSettings} appSettings={props.appSettings} updateSettings={props.updateSettings}/>
     </Navbar>
   );
 };
 
-export default SideMenu;
+export default ServiceDock;

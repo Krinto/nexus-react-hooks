@@ -1,9 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Progress } from "rbx";
+import { AppSettings, DockPosition } from '../App';
 import './iframe.scss';
 
-export type IFrameProps = {
-    url: string;
+type IFrameProps = {
+  url: string;
+  appSettings: AppSettings;
 }
 
 const IFrame = (props: IFrameProps) => {
@@ -11,8 +13,7 @@ const IFrame = (props: IFrameProps) => {
   const contentRef = useRef<HTMLIFrameElement | null>(null)
 
     useEffect(() => {
-      setFrameLoading(true);
-      
+      setFrameLoading(true); 
     }, [props.url]);
 
     useEffect(() => {
@@ -24,7 +25,7 @@ const IFrame = (props: IFrameProps) => {
     }, [contentRef]);
 
     return (
-      <div className="iframe-window">
+      <div className={'iframe-window dock-' + props.appSettings.dockPosition}>
         {frameLoading && <Progress className="iframe-progress" size="small" color="primary"/>}
         <iframe src={props.url} className="iframe" ref={contentRef} />
       </div>

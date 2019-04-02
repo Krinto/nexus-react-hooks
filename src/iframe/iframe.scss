@@ -1,6 +1,9 @@
-.iframe {
+.iframe-window {
+  position: relative;
+
+  .iframe {
     width: 100vw;
-    height: calc(100vh - 52px);
+    height: 100vh;
     background-color: transparent;
     border: 0px none transparent;
     padding: 0px;
@@ -9,11 +12,24 @@
     max-width: 100%;
     box-sizing: border-box;
   }
-  
-  .iframe-window {
-    position: relative;
+
+  &.dock-top .iframe {
+    height: calc(100vh - 52px);
   }
 
-  .iframe-progress {
-    position: fixed;
+  &.dock-right .iframe {
+    width: calc(100vw - 52px);
   }
+
+  &.dock-bottom .iframe {
+    height: calc(100vh - 52px);
+  }
+
+  &.dock-left .iframe {
+    width: calc(100vw - 52px);
+  }
+}
+
+.iframe-progress {
+  position: fixed;
+}
