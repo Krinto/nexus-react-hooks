@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import './App.scss';
 import IFrame from './iframe/iframe';
 import ServiceDock from './serviceDock/serviceDock';
@@ -18,11 +18,12 @@ const initialSettings: AppSettings = {
 
 const App = () => {
   const [currentUrl, setCurrentUrl] = React.useState("http://192.168.1.22:8989");
-  const [appSettings, setAppSettings] = React.useState(initialSettings)
+  const [appSettings, setAppSettings] = React.useState(initialSettings);
+  const [iframe, setIframe] = React.useState<HTMLIFrameElement | null>(null);
   return (
     <div className="App">
-      <ServiceDock updateUrl={setCurrentUrl} appSettings={appSettings} updateSettings={setAppSettings} />
-      <IFrame url={currentUrl} appSettings={appSettings} />
+      <ServiceDock updateUrl={setCurrentUrl} appSettings={appSettings} updateSettings={setAppSettings} iframe={iframe}  />
+      <IFrame url={currentUrl} appSettings={appSettings} setIframe={setIframe} />
     </div>
   );
 };

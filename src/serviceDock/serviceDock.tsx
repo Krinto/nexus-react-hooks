@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Navbar, Icon } from 'rbx';
+import { Navbar, Icon, Modal, Box, Content } from 'rbx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 import SettingsModal from './SettingsModal'
 import { AppSettings } from '../App';
 import map from "ramda/src/map";
+import useKeyEvent from '../hooks/useKeyEvent';
 import './serviceDock.scss';
 import logo from '../logo.svg';
 
@@ -12,6 +13,7 @@ type ServiceDockProps = {
   updateUrl(url: string): void;
   appSettings: AppSettings;
   updateSettings(setting: AppSettings): void;
+  iframe: HTMLIFrameElement | null;
 }
 
 export type ServiceItem = {
@@ -34,8 +36,34 @@ const ServiceDock = (props: ServiceDockProps) => {
     // fetch data
   }, []);
 
+  useKeyEvent((code, event) => {
+    console.log(code);
+  }, {keys: ['t'], eventType: 'keypress', modifier: 'none', target: document});
+
+  useKeyEvent((code, event) => {
+    console.log(code);
+  }, {keys: ['t'], eventType: 'keypress', modifier: 'none', target: props.iframe});
+
   function onSettingsClick(event: React.MouseEvent<Element, MouseEvent>) : void {
     setShowSettings(true);
+  }
+
+  if(props.appSettings.dockPosition == 'center') {
+    return (
+      <Modal active={true} closeOnBlur={true} document={document}>
+        <Modal.Background />
+        <Modal.Content>
+          <Box>
+            <Content>
+              <p>
+                Render dock items here
+              </p>
+            </Content>
+          </Box>
+        </Modal.Content>
+        <Modal.Close />
+      </Modal>
+    );
   }
 
   return (
@@ -59,7 +87,6 @@ const ServiceDock = (props: ServiceDockProps) => {
             <Navbar.Item key={item.id} onClick={() => props.updateUrl(item.url)}>{item.title}</Navbar.Item>
           ), menuItems)}
         </Navbar.Segment>
-
         <Navbar.Segment align="end">
           <Navbar.Item onClick={onSettingsClick}>
             <Icon>
