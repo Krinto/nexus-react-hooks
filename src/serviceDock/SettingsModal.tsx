@@ -23,7 +23,7 @@ const SettingsModal = (props: SettingsModalProps) => {
 
   function onPositionChange(event: React.ChangeEvent<{value: DockPosition}>) : void {
     setLocalSettings({
-      //...localSettings,
+      ...localSettings,
         dockPosition: event.target.value
     });
   }

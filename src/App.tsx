@@ -5,8 +5,8 @@ import ServiceDock from './serviceDock/serviceDock';
 import "rbx/index.css";
 
 export type AppSettings = {
-  dockPosition?: DockPosition;
-  hideDockText?: boolean;
+  dockPosition: DockPosition;
+  hideDockText: boolean;
 }
 
 export type DockPosition = 'top' | 'right' | 'bottom' | 'left' | 'center';
