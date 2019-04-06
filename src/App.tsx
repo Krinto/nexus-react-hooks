@@ -1,7 +1,9 @@
 import React, { useState, useRef } from 'react'
 import './App.scss';
-import IFrame from './iframe/iframe';
-import ServiceDock from './serviceDock/serviceDock';
+import { useRoutes } from 'hookrouter';
+import NotFound from './notFound';
+import ServiceComponent from './ServiceComponent';
+import Status from './status/status';
 import "rbx/index.css";
 
 export type AppSettings = {
@@ -16,16 +18,15 @@ const initialSettings: AppSettings = {
   hideDockText: false
 };
 
+const routes = {
+  '/': () => <ServiceComponent />,
+  '/status': () => <Status />,
+};
+
+
 const App = () => {
-  const [currentUrl, setCurrentUrl] = React.useState("http://192.168.1.22:8989");
-  const [appSettings, setAppSettings] = React.useState(initialSettings);
-  const [iframe, setIframe] = React.useState<HTMLIFrameElement | null>(null);
-  return (
-    <div className="App">
-      <ServiceDock updateUrl={setCurrentUrl} appSettings={appSettings} updateSettings={setAppSettings} iframe={iframe}  />
-      <IFrame url={currentUrl} appSettings={appSettings} setIframe={setIframe} />
-    </div>
-  );
+  const routeResult = useRoutes(routes);
+   return routeResult || <NotFound />;
 };
 
 export default App;

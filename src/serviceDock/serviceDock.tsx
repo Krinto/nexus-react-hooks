@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar, Icon, Modal, Box, Content } from 'rbx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faChartArea } from '@fortawesome/free-solid-svg-icons'
 import SettingsModal from './SettingsModal'
 import { AppSettings } from '../App';
 import map from "ramda/src/map";
@@ -21,6 +21,12 @@ export type ServiceItem = {
   title: string;
   url: string;
   icon: string;
+  status?: Status[];
+}
+
+type Status = {
+  time: Date;
+  online: boolean;
 }
 
 const initialItems: ServiceItem[] = [
@@ -88,6 +94,11 @@ const ServiceDock = (props: ServiceDockProps) => {
           ), menuItems)}
         </Navbar.Segment>
         <Navbar.Segment align="end">
+        <Navbar.Item onClick={() => props.updateUrl('/status')}>
+            <Icon>
+              <FontAwesomeIcon icon={faChartArea} />
+            </Icon>
+          </Navbar.Item>
           <Navbar.Item onClick={onSettingsClick}>
             <Icon>
               <FontAwesomeIcon icon={faCog} />
